@@ -8,6 +8,14 @@ bitwarden_inst_key: ~
 bitwarden_db_pass: ~
 # Identity Certificate Password
 bitwarden_id_cert_pass: ~
+# SMTP
+bitwarden_smtp_user: ~
+bitwarden_smtp_pass: ~
+bitwarden_smtp_host: ~
+bitwarden_smtp_port: ~
+bitwarden_smtp_ssl: false
+# reply email
+bitwarden_reply_email: 'no-reply@{{ bitwarden_domain | mandatory }}'
 
 # List of email addresses for bootstrapped admins
 bitwarden_admin_emails: []
@@ -24,14 +32,6 @@ bitwarden_version: '1.31.1'
 # Compose & config files source
 bitwarden_stub_url: 'https://github.com/bitwarden/server/releases/download/v{{ bitwarden_version }}/docker-stub.zip'
 bitwarden_stub_path: '/opt/bitwarden'
-
-# SMTP
-bitwarden_reply_email: 'no-reply@{{ bitwarden_domain | mandatory }}'
-bitwarden_smtp_user: ~
-bitwarden_smtp_pass: ~
-bitwarden_smtp_host: ~
-bitwarden_smtp_port: ~
-bitwarden_smtp_ssl: false
 
 # for env/global.override.env
 bitwarden_global_settings:
