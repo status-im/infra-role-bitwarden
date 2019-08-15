@@ -35,6 +35,12 @@
   vars:
     values_dict: '{{ bitwarden_docker_settings }}'
 
+- name: BitWarden | Adjust Docker Compose Proxy ports
+  replace:
+    path: '{{ bitwarden_stub_path }}/docker/docker-compose.yml'
+    regexp: '80:8080'
+    replace: '{{ bitwarden_proxy_port }}:{{ bitwarden_proxy_port }}'
+
 - name: BitWarden | Adjust App configuration
   replace:
     path: '{{ bitwarden_stub_path }}/web/app-id.json'
