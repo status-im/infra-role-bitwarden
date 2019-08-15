@@ -1,0 +1,47 @@
+---
+# FQDN the BitWarden service will use
+bitwarden_domain: ~
+# Unique for each installation, see https://bitwarden.com/host/
+bitwarden_inst_id: ~
+bitwarden_inst_key: ~
+# Database password
+bitwarden_db_pass: ~
+# Identity Certificate Password
+bitwarden_id_cert_pass: ~
+
+# WARNING: Changing this might require role updates
+bitwarden_version: '1.31.1'
+
+bitwarden_stub_url: 'https://github.com/bitwarden/server/releases/download/v{{ bitwarden_version }}/docker-stub.zip'
+bitwarden_stub_path: '/opt/bitwarden'
+
+# SMTP
+bitwarden_reply_email: 'no-reply@{{ bitwarden_domain | mandatory }}'
+bitwarden_smtp_user: ~
+bitwarden_smtp_pass: ~
+bitwarden_smtp_host: ~
+bitwarden_smtp_port: ~
+bitwarden_smtp_ssl: false
+
+bitwarden_global_settings:
+  globalSettings__baseServiceUri__vault: 'https://{{ bitwarden_domain | mandatory }}'
+  globalSettings__baseServiceUri__api: 'https://{{ bitwarden_domain | mandatory }}/api'
+  globalSettings__baseServiceUri__identity: 'https://{{ bitwarden_domain | mandatory }}/identity'
+  globalSettings__baseServiceUri__admin: 'https://{{ bitwarden_domain | mandatory }}/admin'
+  globalSettings__baseServiceUri__notifications: 'https://{{ bitwarden_domain | mandatory }}/notifications'
+  globalSettings__attachment__baseUrl: 'https://{{ bitwarden_domain | mandatory }}/attachments'
+  globalSettings__identityServer__certificatePassword: '{{ bitwarden_id_cert_pass | mandatory }}'
+  globalSettings__mail__replyToEmail: '{{ bitwarden_reply_email | mandatory }}'
+  globalSettings__mail__smtp__username: '{{ bitwarden_smtp_user | mandatory }}'
+  globalSettings__mail__smtp__password: '{{ bitwarden_smtp_pass | mandatory }}'
+  globalSettings__mail__smtp__host: '{{ bitwarden_smtp_host | mandatory }}'
+  globalSettings__mail__smtp__port: '{{ bitwarden_smtp_port | mandatory }}'
+  globalSettings__mail__smtp__ssl: '{{ bitwarden_smtp_ssl | mandatory }}'
+  globalSettings__sqlServer__connectionString: "Data Source=tcp:mssql,1433;Initial Catalog=vault;Persist Security Info=False;User ID=sa;Password={{ bitwarden_db_pass | mandatory }};MultipleActiveResultSets=False;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True"
+  globalSettings__duo__aKey: 'TODO'
+  globalSettings__yubico__clientId: 'TODO'
+  globalSettings__yubico__key: 'TODO'
+  globalSettings__hibpApiKey: 'TODO'
+
+bitwarden_mssql_settings:
+  SA_PASSWORD: '{{ bitwarden_db_pass | mandatory }}'

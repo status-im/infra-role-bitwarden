@@ -1,0 +1,14 @@
+---
+- name: BitWarden | Adjust Global configuration
+  lineinfile:
+    path: '{{ bitwarden_stub_path }}/env/global.override.env'
+    regexp: '^{{ item.key }}'
+    line: '{{ item.key }}={{ item.value }}'
+  with_dict: '{{ bitwarden_global_settings }}'
+
+- name: BitWarden | Adjust MSSQL configuration
+  lineinfile:
+    path: '{{ bitwarden_stub_path }}/env/mssql.override.env'
+    regexp: '^{{ item.key }}'
+    line: '{{ item.key }}={{ item.value }}'
+  with_dict: '{{ bitwarden_mssql_settings }}'

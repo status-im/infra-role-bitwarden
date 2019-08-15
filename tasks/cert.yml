@@ -1,0 +1,32 @@
+---
+- name: BitWarden | Check if Private Key exists
+  stat:
+    path: 
+  register: bitwarden_private_key
+
+- name: BitWarden | Generate certificate for identity container
+  command: |
+    openssl req \
+      -x509 \
+      -newkey rsa:4096 \
+      -sha256 -nodes \
+      -keyout identity.key \
+      -out identity.crt \
+      -subj "/CN=Bitwarden IdentityServer" \
+      -days 10950
+  args:
+    chdir: '{{ bitwarden_stub_path }}'
+  when: not bitwarden_private_key.stat.exists
+
+- name: BitWarden | Generate private key for identity container
+  command: 
+    openssl pkcs12 \
+      -export \
+     -out ./identity/identity.pfx \
+     -inkey identity.key \
+     -in identity.crt \
+     -certfile identity.crt \
+     -passout pass:{{ bitwarden_id_cert_pass }}
+  args:
+    chdir: '{{ bitwarden_stub_path }}'
+  when: not bitwarden_private_key.stat.exists
