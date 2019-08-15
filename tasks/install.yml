@@ -1,4 +1,10 @@
 ---
+- name: BitWarden | Create destination folder
+  file:
+    path: '{{ bitwarden_stub_path }}'
+    state: 'directory'
+    mode: 0700
+
 - name: BitWarden | Download Docker Compose files
   unarchive:
     src: '{{ bitwarden_stub_url }}'
