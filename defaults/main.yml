@@ -6,6 +6,8 @@ bitwarden_inst_id: ~
 bitwarden_inst_key: ~
 # Database password
 bitwarden_db_pass: ~
+# Internal Identity Key
+bitwarden_id_key: ~
 # Identity Certificate Password
 bitwarden_id_cert_pass: ~
 # SMTP
@@ -14,6 +16,7 @@ bitwarden_smtp_pass: ~
 bitwarden_smtp_host: ~
 bitwarden_smtp_port: ~
 bitwarden_smtp_ssl: false
+
 # reply email
 bitwarden_reply_email: 'no-reply@{{ bitwarden_domain | mandatory }}'
 
@@ -50,7 +53,7 @@ bitwarden_global_settings:
   globalSettings__identityServer__certificatePassword: '{{ bitwarden_id_cert_pass | mandatory }}'
   globalSettings__installation__id: '{{ bitwarden_inst_id }}'
   globalSettings__installation__key: '{{ bitwarden_inst_key }}'
-  globalSettings__internalIdentityKey: 'RANDOM_IDENTITY_KEY'
+  globalSettings__internalIdentityKey: '{{ bitwarden_id_key }}'
   globalSettings__licenseDirectory: '/etc/bitwarden/core/licenses'
   globalSettings__logDirectory: '/etc/bitwarden/logs'
   globalSettings__mail__replyToEmail: '{{ bitwarden_reply_email | mandatory }}'
