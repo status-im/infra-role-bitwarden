@@ -26,6 +26,15 @@
   vars:
     values_dict: '{{ bitwarden_docker_settings }}'
 
+- name: BitWarden | Generate Proxy configuration
+  template:
+    path: '{{ bitwarden_stub_path }}/nginx/default.conf'
+    src: 'nginx.conf.j2'
+    mode: 0644
+    force: true
+  vars:
+    values_dict: '{{ bitwarden_docker_settings }}'
+
 - name: BitWarden | Adjust App configuration
   replace:
     path: '{{ bitwarden_stub_path }}/web/app-id.json'

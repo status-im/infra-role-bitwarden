@@ -1,0 +1,71 @@
+server {
+  listen {{ bitwarden_proxy_port }} ssl http2;
+  server_name {{ bitwarden_domain }};
+
+  location / {
+    proxy_pass http://web:{{ bitwarden_listen_port }}/;
+    include /etc/nginx/security-headers-ssl.conf;
+    include /etc/nginx/security-headers.conf;
+    add_header Content-Security-Policy "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://haveibeenpwned.com https://www.gravatar.com; child-src 'self' https://*.duosecurity.com; frame-src 'self' https://*.duosecurity.com; connect-src 'self' wss://bitwarden.example.com https://api.pwnedpasswords.com https://twofactorauth.org; object-src 'self' blob:;";
+    add_header X-Frame-Options SAMEORIGIN;
+    add_header X-Robots-Tag "noindex, nofollow";
+  }
+
+  location /alive {
+    return 200 'alive';
+    add_header Content-Type text/plain;
+  }
+
+  location = /app-id.json {
+    proxy_pass http://web:{{ bitwarden_listen_port }}/app-id.json;
+    include /etc/nginx/security-headers-ssl.conf;
+    include /etc/nginx/security-headers.conf;
+    proxy_hide_header Content-Type;
+    add_header Content-Type $fido_content_type;
+  }
+
+  location = /duo-connector.html {
+    proxy_pass http://web:{{ bitwarden_listen_port }}/duo-connector.html;
+  }
+
+  location = /u2f-connector.html {
+    proxy_pass http://web:{{ bitwarden_listen_port }}/u2f-connector.html;
+  }
+
+  location /attachments/ {
+    proxy_pass http://attachments:{{ bitwarden_listen_port }}/;
+  }
+
+  location /api/ {
+    proxy_pass http://api:{{ bitwarden_listen_port }}/;
+  }
+
+  location /identity/ {
+    proxy_pass http://identity:{{ bitwarden_listen_port }}/;
+  }
+
+  location /icons/ {
+    proxy_pass http://icons:{{ bitwarden_listen_port }}/;
+  }
+
+  location /notifications/ {
+    proxy_pass http://notifications:{{ bitwarden_listen_port }}/;
+  }
+
+  location /notifications/hub {
+    proxy_pass http://notifications:{{ bitwarden_listen_port }}/hub;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection $http_connection;
+  }
+
+  location /events/ {
+    proxy_pass http://events:{{ bitwarden_listen_port }}/;
+  }
+
+  location /admin {
+    proxy_pass http://admin:{{ bitwarden_listen_port }};
+    include /etc/nginx/security-headers-ssl.conf;
+    include /etc/nginx/security-headers.conf;
+    add_header X-Frame-Options SAMEORIGIN;
+  }
+}
