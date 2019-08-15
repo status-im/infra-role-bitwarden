@@ -16,6 +16,9 @@ bitwarden_smtp_pass: ~
 bitwarden_smtp_host: ~
 bitwarden_smtp_port: ~
 bitwarden_smtp_ssl: false
+# YubiKey API
+bitwarden_yubico_client_id: ~
+bitwarden_yubico_secret_key: ~
 
 # reply email
 bitwarden_reply_email: 'no-reply@{{ bitwarden_domain | mandatory }}'
@@ -63,8 +66,8 @@ bitwarden_global_settings:
   globalSettings__mail__smtp__ssl: '{{ bitwarden_smtp_ssl | mandatory }}'
   globalSettings__mail__smtp__username: '{{ bitwarden_smtp_user | mandatory }}'
   globalSettings__sqlServer__connectionString: '"Data Source=tcp:mssql,1433;Initial Catalog=vault;Persist Security Info=False;User ID=sa;Password={{ bitwarden_db_pass | mandatory }};MultipleActiveResultSets=False;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True"'
-  globalSettings__yubico__clientId: 'TODO'
-  globalSettings__yubico__key: 'TODO'
+  globalSettings__yubico__clientId: '{{ bitwarden_yubico_client_id }}'
+  globalSettings__yubico__key: '{{ bitwarden_yubico_secret_key }}'
 
 # for env/mssql.override.env
 bitwarden_mssql_settings:
