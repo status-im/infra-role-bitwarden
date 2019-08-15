@@ -19,6 +19,10 @@ bitwarden_smtp_ssl: false
 # YubiKey API
 bitwarden_yubico_client_id: ~
 bitwarden_yubico_secret_key: ~
+# Duo A-Key
+bitwarden_duo_akey: ~
+# HaveIBeenPwned API Key
+bitwarden_duo_hibp_api_key: ~
 
 # reply email
 bitwarden_reply_email: 'no-reply@{{ bitwarden_domain | mandatory }}'
@@ -51,8 +55,8 @@ bitwarden_global_settings:
   globalSettings__baseServiceUri__vault: 'https://{{ bitwarden_domain | mandatory }}'
   globalSettings__dataProtection__directory: '/etc/bitwarden/core/aspnet-dataprotection'
   globalSettings__disableUserRegistration: '{{ bitwarden_disable_registration | string }}'
-  globalSettings__duo__aKey: 'TODO'
-  globalSettings__hibpApiKey: 'TODO'
+  globalSettings__duo__aKey: '{{ bitwarden_duo_akey }}'
+  globalSettings__hibpApiKey: '{{ bitwarden_duo_hibp_api_key }}'
   globalSettings__identityServer__certificatePassword: '{{ bitwarden_id_cert_pass | mandatory }}'
   globalSettings__installation__id: '{{ bitwarden_inst_id | mandatory }}'
   globalSettings__installation__key: '{{ bitwarden_inst_key | mandatory }}'
