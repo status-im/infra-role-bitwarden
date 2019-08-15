@@ -9,6 +9,15 @@ bitwarden_db_pass: ~
 # Identity Certificate Password
 bitwarden_id_cert_pass: ~
 
+# List of email addresses for bootstrapped admins
+bitwarden_admin_emails: []
+# Should registartion be open
+bitwarden_disable_registration: true
+
+# Proxy settings
+bitwarden_proxy_port: 4000
+bitwarden_listen_port: 5000
+
 # WARNING: Changing this might require role updates
 bitwarden_version: '1.31.1'
 
@@ -26,28 +35,55 @@ bitwarden_smtp_ssl: false
 
 # for env/global.override.env
 bitwarden_global_settings:
-  globalSettings__baseServiceUri__vault: 'https://{{ bitwarden_domain | mandatory }}'
+  adminSettings__admins: '{{ bitwarden_admin_emails | join(",") }}'
+  globalSettings__attachment__baseDirectory: '/etc/bitwarden/core/attachments'
+  globalSettings__attachment__baseUrl: 'https://{{ bitwarden_domain | mandatory }}/attachments'
+  globalSettings__baseServiceUri__admin: 'https://{{ bitwarden_domain | mandatory }}/admin'
   globalSettings__baseServiceUri__api: 'https://{{ bitwarden_domain | mandatory }}/api'
   globalSettings__baseServiceUri__identity: 'https://{{ bitwarden_domain | mandatory }}/identity'
-  globalSettings__baseServiceUri__admin: 'https://{{ bitwarden_domain | mandatory }}/admin'
   globalSettings__baseServiceUri__notifications: 'https://{{ bitwarden_domain | mandatory }}/notifications'
-  globalSettings__attachment__baseUrl: 'https://{{ bitwarden_domain | mandatory }}/attachments'
+  globalSettings__baseServiceUri__vault: 'https://{{ bitwarden_domain | mandatory }}'
+  globalSettings__dataProtection__directory: '/etc/bitwarden/core/aspnet-dataprotection'
+  globalSettings__disableUserRegistration: '{{ bitwarden_disable_registration | string }}'
+  globalSettings__duo__aKey: 'TODO'
+  globalSettings__hibpApiKey: 'TODO'
   globalSettings__identityServer__certificatePassword: '{{ bitwarden_id_cert_pass | mandatory }}'
+  globalSettings__installation__id: '{{ bitwarden_inst_id }}'
+  globalSettings__installation__key: '{{ bitwarden_inst_key }}'
+  globalSettings__internalIdentityKey: 'RANDOM_IDENTITY_KEY'
+  globalSettings__licenseDirectory: '/etc/bitwarden/core/licenses'
+  globalSettings__logDirectory: '/etc/bitwarden/logs'
   globalSettings__mail__replyToEmail: '{{ bitwarden_reply_email | mandatory }}'
-  globalSettings__mail__smtp__username: '{{ bitwarden_smtp_user | mandatory }}'
-  globalSettings__mail__smtp__password: '{{ bitwarden_smtp_pass | mandatory }}'
   globalSettings__mail__smtp__host: '{{ bitwarden_smtp_host | mandatory }}'
+  globalSettings__mail__smtp__password: '{{ bitwarden_smtp_pass | mandatory }}'
   globalSettings__mail__smtp__port: '{{ bitwarden_smtp_port | mandatory }}'
   globalSettings__mail__smtp__ssl: '{{ bitwarden_smtp_ssl | mandatory }}'
-  globalSettings__sqlServer__connectionString: "Data Source=tcp:mssql,1433;Initial Catalog=vault;Persist Security Info=False;User ID=sa;Password={{ bitwarden_db_pass | mandatory }};MultipleActiveResultSets=False;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True"
-  globalSettings__duo__aKey: 'TODO'
+  globalSettings__mail__smtp__username: '{{ bitwarden_smtp_user | mandatory }}'
+  globalSettings__sqlServer__connectionString: '"Data Source=tcp:mssql,1433;Initial Catalog=vault;Persist Security Info=False;User ID=sa;Password=RANDOM_DATABASE_PASSWORD;MultipleActiveResultSets=False;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True"'
   globalSettings__yubico__clientId: 'TODO'
   globalSettings__yubico__key: 'TODO'
-  globalSettings__hibpApiKey: 'TODO'
 
 # for env/mssql.override.env
 bitwarden_mssql_settings:
+  ACCEPT_EULA: Y
+  MSSQL_PID: Express
   SA_PASSWORD: '{{ bitwarden_db_pass | mandatory }}'
+
+bitwarden_docker_settings:
+  ASPNETCORE_ENVIRONMENT: 'Production'
+  globalSettings__selfHosted: 'true'
+  globalSettings__baseServiceUri__vault: 'http://localhost'
+  globalSettings__baseServiceUri__api: 'http://localhost/api'
+  globalSettings__baseServiceUri__identity: 'http://localhost/identity'
+  globalSettings__baseServiceUri__admin: 'http://localhost/admin'
+  globalSettings__baseServiceUri__notifications: 'http://localhost/notifications'
+  globalSettings__baseServiceUri__internalNotifications: 'http://notifications:{{ bitwarden_listen_port }}'
+  globalSettings__baseServiceUri__internalAdmin: 'http://admin:{{ bitwarden_listen_port }}'
+  globalSettings__baseServiceUri__internalIdentity: 'http://identity:{{ bitwarden_listen_port }}'
+  globalSettings__baseServiceUri__internalApi: 'http://api:{{ bitwarden_listen_port }}'
+  globalSettings__baseServiceUri__internalVault: 'http://web:{{ bitwarden_listen_port }}'
+  globalSettings__pushRelayBaseUri: 'https://push.bitwarden.com'
+  globalSettings__installation__identityUri: 'https://identity.bitwarden.com'
 
 # generic container settings
 cont_state: present

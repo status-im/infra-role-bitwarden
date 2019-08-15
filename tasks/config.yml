@@ -1,17 +1,30 @@
 ---
-- name: BitWarden | Adjust Global configuration
-  lineinfile:
+- name: BitWarden | Generate Global configuration
+  template:
     path: '{{ bitwarden_stub_path }}/env/global.override.env'
-    regexp: '^{{ item.key }}'
-    line: '{{ item.key }}={{ item.value }}'
-  with_dict: '{{ bitwarden_global_settings }}'
+    src: 'config.j2'
+    mode: 0600
+    force: true
+  vars:
+    values_dict: '{{ bitwarden_global_settings }}'
 
-- name: BitWarden | Adjust MSSQL configuration
-  lineinfile:
+- name: BitWarden | Generate MSSQL configuration
+  template:
     path: '{{ bitwarden_stub_path }}/env/mssql.override.env'
-    regexp: '^{{ item.key }}'
-    line: '{{ item.key }}={{ item.value }}'
-  with_dict: '{{ bitwarden_mssql_settings }}'
+    src: 'config.j2'
+    mode: 0600
+    force: true
+  vars:
+    values_dict: '{{ bitwarden_mssql_settings }}'
+
+- name: BitWarden | Generate Docker configuration
+  template:
+    path: '{{ bitwarden_stub_path }}/docker/global.env'
+    src: 'config.j2'
+    mode: 0600
+    force: true
+  vars:
+    values_dict: '{{ bitwarden_docker_settings }}'
 
 - name: BitWarden | Adjust App configuration
   replace:
