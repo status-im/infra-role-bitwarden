@@ -1,7 +1,7 @@
 ---
 - name: BitWarden | Generate Global configuration
   template:
-    path: '{{ bitwarden_stub_path }}/env/global.override.env'
+    dest: '{{ bitwarden_stub_path }}/env/global.override.env'
     src: 'config.j2'
     mode: 0600
     force: true
@@ -10,7 +10,7 @@
 
 - name: BitWarden | Generate MSSQL configuration
   template:
-    path: '{{ bitwarden_stub_path }}/env/mssql.override.env'
+    dest: '{{ bitwarden_stub_path }}/env/mssql.override.env'
     src: 'config.j2'
     mode: 0600
     force: true
@@ -19,7 +19,7 @@
 
 - name: BitWarden | Generate Docker configuration
   template:
-    path: '{{ bitwarden_stub_path }}/docker/global.env'
+    dest: '{{ bitwarden_stub_path }}/docker/global.env'
     src: 'config.j2'
     mode: 0600
     force: true
@@ -28,7 +28,7 @@
 
 - name: BitWarden | Generate Proxy configuration
   template:
-    path: '{{ bitwarden_stub_path }}/nginx/default.conf'
+    dest: '{{ bitwarden_stub_path }}/nginx/default.conf'
     src: 'nginx.conf.j2'
     mode: 0644
     force: true
