@@ -12,6 +12,7 @@ bitwarden_id_cert_pass: ~
 # WARNING: Changing this might require role updates
 bitwarden_version: '1.31.1'
 
+# Compose & config files source
 bitwarden_stub_url: 'https://github.com/bitwarden/server/releases/download/v{{ bitwarden_version }}/docker-stub.zip'
 bitwarden_stub_path: '/opt/bitwarden'
 
@@ -23,6 +24,7 @@ bitwarden_smtp_host: ~
 bitwarden_smtp_port: ~
 bitwarden_smtp_ssl: false
 
+# for env/global.override.env
 bitwarden_global_settings:
   globalSettings__baseServiceUri__vault: 'https://{{ bitwarden_domain | mandatory }}'
   globalSettings__baseServiceUri__api: 'https://{{ bitwarden_domain | mandatory }}/api'
@@ -43,6 +45,7 @@ bitwarden_global_settings:
   globalSettings__yubico__key: 'TODO'
   globalSettings__hibpApiKey: 'TODO'
 
+# for env/mssql.override.env
 bitwarden_mssql_settings:
   SA_PASSWORD: '{{ bitwarden_db_pass | mandatory }}'
 
