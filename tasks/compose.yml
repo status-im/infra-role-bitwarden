@@ -1,0 +1,9 @@
+---
+- name: BitWarden | Compose the containers
+  docker_compose:
+    project_name: 'bitwarden'
+    project_src: '{{ bitwarden_stub_path }}/docker'
+    pull: true
+    state: '{{ cont_state }}'
+    recreate: '{{ cont_recreate }}'
+    restarted:  '{{ cont_restart }}'

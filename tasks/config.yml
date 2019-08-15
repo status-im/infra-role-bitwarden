@@ -12,3 +12,9 @@
     regexp: '^{{ item.key }}'
     line: '{{ item.key }}={{ item.value }}'
   with_dict: '{{ bitwarden_mssql_settings }}'
+
+- name: BitWarden | Adjust App configuration
+  lineinfile:
+    path: '{{ bitwarden_stub_path }}/web/app-id.json'
+    regexp: '^        "https://bitwarden.example.com",'
+    line: '        "https://{{ bitwarden_domain }}",'

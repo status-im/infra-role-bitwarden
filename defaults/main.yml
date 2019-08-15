@@ -45,3 +45,8 @@ bitwarden_global_settings:
 
 bitwarden_mssql_settings:
   SA_PASSWORD: '{{ bitwarden_db_pass | mandatory }}'
+
+# generic container settings
+cont_state: present
+cont_recreate: false
+cont_restart: false
