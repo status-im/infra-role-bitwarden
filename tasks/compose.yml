@@ -4,6 +4,6 @@
     project_name: 'bitwarden'
     project_src: '{{ bitwarden_stub_path }}/docker'
     pull: true
-    state: present
-    recreate: '{{ cont_recreate }}'
-    restarted:  '{{ cont_restart }}'
+    state: '{{ bitwarden_compose_state }}'
+    recreate: '{{ bitwarden_compose_recreate }}'
+    restarted:  '{{ bitwarden_compose_restart }}'

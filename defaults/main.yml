@@ -24,6 +24,11 @@ bitwarden_duo_akey: ~
 # HaveIBeenPwned API Key
 bitwarden_duo_hibp_api_key: ~
 
+# Docker Compose settings
+bitwarden_compose_state: present
+bitwarden_compose_recreate: never
+bitwarden_compose_restart: false
+
 # reply email
 bitwarden_reply_email: 'no-reply@{{ bitwarden_domain | mandatory }}'
 
@@ -94,7 +99,3 @@ bitwarden_docker_settings:
   globalSettings__baseServiceUri__internalVault: 'http://web:{{ bitwarden_listen_port }}'
   globalSettings__pushRelayBaseUri: 'https://push.bitwarden.com'
   globalSettings__installation__identityUri: 'https://identity.bitwarden.com'
-
-# generic container settings
-cont_recreate: false
-cont_restart: false
