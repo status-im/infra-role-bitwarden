@@ -21,17 +21,6 @@
   vars:
     values_dict: '{{ bitwarden_mssql_settings }}'
 
-- name: BitWarden | Generate Docker configuration
-  template:
-    dest: '{{ bitwarden_stub_path }}/docker/global.env'
-    src: 'config.j2'
-    mode: 0600
-    owner: '{{ bitwarden_owner }}'
-    group: '{{ bitwarden_group }}'
-    force: true
-  vars:
-    values_dict: '{{ bitwarden_docker_settings }}'
-
 - name: BitWarden | Generate Proxy configuration
   template:
     dest: '{{ bitwarden_stub_path }}/nginx/default.conf'
@@ -40,8 +29,6 @@
     owner: '{{ bitwarden_owner }}'
     group: '{{ bitwarden_group }}'
     force: true
-  vars:
-    values_dict: '{{ bitwarden_docker_settings }}'
 
 - name: BitWarden | Adjust Docker Compose Proxy ports
   replace:

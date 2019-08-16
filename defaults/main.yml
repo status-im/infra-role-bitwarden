@@ -66,6 +66,11 @@ bitwarden_global_settings:
   globalSettings__baseServiceUri__identity: 'https://{{ bitwarden_domain | mandatory }}/identity'
   globalSettings__baseServiceUri__notifications: 'https://{{ bitwarden_domain | mandatory }}/notifications'
   globalSettings__baseServiceUri__vault: 'https://{{ bitwarden_domain | mandatory }}'
+  globalSettings__baseServiceUri__internalNotifications: 'http://notifications:{{ bitwarden_listen_port }}'
+  globalSettings__baseServiceUri__internalAdmin: 'http://admin:{{ bitwarden_listen_port }}'
+  globalSettings__baseServiceUri__internalIdentity: 'http://identity:{{ bitwarden_listen_port }}'
+  globalSettings__baseServiceUri__internalApi: 'http://api:{{ bitwarden_listen_port }}'
+  globalSettings__baseServiceUri__internalVault: 'http://web:{{ bitwarden_listen_port }}'
   globalSettings__dataProtection__directory: '/etc/bitwarden/core/aspnet-dataprotection'
   globalSettings__disableUserRegistration: '{{ bitwarden_disable_registration | string | lower }}'
   globalSettings__duo__aKey: '{{ bitwarden_duo_akey }}'
@@ -91,19 +96,3 @@ bitwarden_mssql_settings:
   ACCEPT_EULA: Y
   MSSQL_PID: Express
   SA_PASSWORD: '{{ bitwarden_db_pass | mandatory }}'
-
-bitwarden_docker_settings:
-  ASPNETCORE_ENVIRONMENT: 'Production'
-  globalSettings__selfHosted: 'true'
-  globalSettings__baseServiceUri__vault: 'https://{{ bitwarden_domain }}'
-  globalSettings__baseServiceUri__api: 'https://{{ bitwarden_domain }}/api'
-  globalSettings__baseServiceUri__identity: 'https://{{ bitwarden_domain }}/identity'
-  globalSettings__baseServiceUri__admin: 'https://{{ bitwarden_domain }}/admin'
-  globalSettings__baseServiceUri__notifications: 'https://{{ bitwarden_domain }}/notifications'
-  globalSettings__baseServiceUri__internalNotifications: 'http://notifications:{{ bitwarden_listen_port }}'
-  globalSettings__baseServiceUri__internalAdmin: 'http://admin:{{ bitwarden_listen_port }}'
-  globalSettings__baseServiceUri__internalIdentity: 'http://identity:{{ bitwarden_listen_port }}'
-  globalSettings__baseServiceUri__internalApi: 'http://api:{{ bitwarden_listen_port }}'
-  globalSettings__baseServiceUri__internalVault: 'http://web:{{ bitwarden_listen_port }}'
-  globalSettings__pushRelayBaseUri: 'https://push.bitwarden.com'
-  globalSettings__installation__identityUri: 'https://identity.bitwarden.com'
