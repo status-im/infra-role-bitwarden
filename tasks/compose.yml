@@ -12,7 +12,8 @@
 - name: BitWarden | Compose the containers
   docker_compose:
     project_name: 'bitwarden'
-    project_src: '{{ bitwarden_stub_path }}/docker'
+    project_src: '{{ bitwarden_stub_path }}'
+    files: 'docker/docker-compose.yml'
     pull: true
     state: '{{ bitwarden_compose_state }}'
     recreate: '{{ bitwarden_compose_recreate }}'
