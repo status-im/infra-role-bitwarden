@@ -66,7 +66,7 @@ bitwarden_global_settings:
   globalSettings__baseServiceUri__notifications: 'https://{{ bitwarden_domain | mandatory }}/notifications'
   globalSettings__baseServiceUri__vault: 'https://{{ bitwarden_domain | mandatory }}'
   globalSettings__dataProtection__directory: '/etc/bitwarden/core/aspnet-dataprotection'
-  globalSettings__disableUserRegistration: '{{ bitwarden_disable_registration | string }}'
+  globalSettings__disableUserRegistration: '{{ bitwarden_disable_registration | string | lower }}'
   globalSettings__duo__aKey: '{{ bitwarden_duo_akey }}'
   globalSettings__hibpApiKey: '{{ bitwarden_duo_hibp_api_key }}'
   globalSettings__identityServer__certificatePassword: '{{ bitwarden_id_cert_pass | mandatory }}'
