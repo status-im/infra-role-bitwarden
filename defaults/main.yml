@@ -29,6 +29,10 @@ bitwarden_compose_state: present
 bitwarden_compose_recreate: never
 bitwarden_compose_restart: false
 
+# UID & GID for container
+bitwarden_container_uid: 1000
+bitwarden_container_gid: 1000
+
 # reply email
 bitwarden_reply_email: 'no-reply@{{ bitwarden_domain | mandatory }}'
 

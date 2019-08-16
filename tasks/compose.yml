@@ -1,4 +1,14 @@
 ---
+- name: BitWarden | Set UID & GID for containers
+  copy:
+    dest: '{{ bitwarden_stub_path }}/env/uid.env'
+    mode: 0644
+    owner: '{{ bitwarden_owner }}'
+    group: '{{ bitwarden_group }}'
+    content: |
+      LOCAL_UID={{ bitwarden_container_uid }}
+      LOCAL_GID={{ bitwarden_container_gid }}
+
 - name: BitWarden | Compose the containers
   docker_compose:
     project_name: 'bitwarden'
