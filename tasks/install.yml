@@ -1,4 +1,12 @@
 ---
+- name: BitWarden | Install docker-compose package
+  apt:
+    name: docker-compose
+
+- name: BitWarden | Install docker-compose Python module
+  pip:
+    name: docker-compose
+
 - name: BitWarden | Create destination folder
   file:
     path: '{{ bitwarden_stub_path }}'
