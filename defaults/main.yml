@@ -44,7 +44,7 @@ bitwarden_disable_registration: true
 
 # Proxy settings
 bitwarden_listen_port: 5000
-bitwarden_proxy_port: 5001
+bitwarden_proxy_port: 8080
 
 # WARNING: Changing this might require role updates
 bitwarden_version: '1.31.1'
