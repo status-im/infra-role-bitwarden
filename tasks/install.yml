@@ -1,7 +1,9 @@
 ---
 - name: BitWarden | Install docker-compose package
   apt:
-    name: docker-compose
+    name:
+      - docker-compose
+      - ssl-cert
 
 - name: BitWarden | Install docker-compose Python module
   pip:

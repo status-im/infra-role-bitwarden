@@ -71,3 +71,12 @@ server {
     add_header X-Frame-Options SAMEORIGIN;
   }
 }
+
+# Dummy endpoint to make the container healthcheck pass
+server {
+  listen 8443 ssl http2;
+  server_name {{ bitwarden_domain }};
+
+  ssl_certificate /etc/ssl/certs/ssl-cert-snakeoil.pem;
+  ssl_certificate_key /etc/ssl/private/ssl-cert-snakeoil.key;
+}

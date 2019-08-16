@@ -42,6 +42,12 @@
     regexp: '443:8443'
     state: absent
 
+- name: BitWarden | Don't map /etc/ssl for Nginx container
+  replace:
+    path: '{{ bitwarden_stub_path }}/docker/docker-compose.yml'
+    regexp: '../ssl:/etc/ssl'
+    replace: '/etc/ssl:/etc/ssl'
+
 - name: BitWarden | Adjust App configuration
   replace:
     path: '{{ bitwarden_stub_path }}/web/app-id.json'
