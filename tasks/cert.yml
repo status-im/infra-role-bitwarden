@@ -10,8 +10,8 @@
       -x509 \
       -newkey rsa:4096 \
       -sha256 -nodes \
-      -keyout identity.key \
-      -out identity.crt \
+      -keyout ./identity/identity.key \
+      -out ./identity/identity.crt \
       -subj "/CN=Bitwarden IdentityServer" \
       -days 10950
   args:
@@ -23,10 +23,21 @@
     openssl pkcs12 \
       -export \
      -out ./identity/identity.pfx \
-     -inkey identity.key \
-     -in identity.crt \
-     -certfile identity.crt \
+     -inkey ./identity/identity.key \
+     -in ./identity/identity.crt \
+     -certfile ./identity/identity.crt \
      -passout pass:{{ bitwarden_id_cert_pass }}
   args:
     chdir: '{{ bitwarden_stub_path }}'
   when: not bitwarden_private_key.stat.exists
+
+- name: BitWarden | Adjust certificate permissions
+  file:
+    path: '{{ item }}'
+    owner: '{{ bitwarden_owner }}'
+    group: '{{ bitwarden_group }}'
+  with_items:
+    - '{{ bitwarden_stub_path }}/identity/identity.pfx'
+    - '{{ bitwarden_stub_path }}/identity/identity.key'
+    - '{{ bitwarden_stub_path }}/identity/identity.crt'
+

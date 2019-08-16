@@ -11,10 +11,15 @@
   file:
     path: '{{ bitwarden_stub_path }}'
     state: 'directory'
-    mode: 0700
+    mode: 0750
+    recurse: true
+    owner: '{{ bitwarden_owner }}'
+    group: '{{ bitwarden_group }}'
 
 - name: BitWarden | Download Docker Compose files
   unarchive:
     src: '{{ bitwarden_stub_url }}'
     dest: '{{ bitwarden_stub_path }}'
     remote_src: true
+    owner: '{{ bitwarden_owner }}'
+    group: '{{ bitwarden_group }}'

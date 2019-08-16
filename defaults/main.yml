@@ -51,6 +51,9 @@ bitwarden_version: '1.31.1'
 # Compose & config files source
 bitwarden_stub_url: 'https://github.com/bitwarden/server/releases/download/v{{ bitwarden_version }}/docker-stub.zip'
 bitwarden_stub_path: '/opt/bitwarden'
+# Folder permissions
+bitwarden_owner: '{{ bitwarden_container_uid }}'
+bitwarden_group: '{{ bitwarden_container_gid }}'
 
 # for env/global.override.env
 bitwarden_global_settings:

@@ -4,6 +4,8 @@
     dest: '{{ bitwarden_stub_path }}/env/global.override.env'
     src: 'config.j2'
     mode: 0600
+    owner: '{{ bitwarden_owner }}'
+    group: '{{ bitwarden_group }}'
     force: true
   vars:
     values_dict: '{{ bitwarden_global_settings }}'
@@ -13,6 +15,8 @@
     dest: '{{ bitwarden_stub_path }}/env/mssql.override.env'
     src: 'config.j2'
     mode: 0600
+    owner: '{{ bitwarden_owner }}'
+    group: '{{ bitwarden_group }}'
     force: true
   vars:
     values_dict: '{{ bitwarden_mssql_settings }}'
@@ -22,6 +26,8 @@
     dest: '{{ bitwarden_stub_path }}/docker/global.env'
     src: 'config.j2'
     mode: 0600
+    owner: '{{ bitwarden_owner }}'
+    group: '{{ bitwarden_group }}'
     force: true
   vars:
     values_dict: '{{ bitwarden_docker_settings }}'
@@ -31,6 +37,8 @@
     dest: '{{ bitwarden_stub_path }}/nginx/default.conf'
     src: 'nginx.conf.j2'
     mode: 0644
+    owner: '{{ bitwarden_owner }}'
+    group: '{{ bitwarden_group }}'
     force: true
   vars:
     values_dict: '{{ bitwarden_docker_settings }}'
