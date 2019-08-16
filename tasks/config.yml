@@ -49,6 +49,12 @@
     regexp: '80:8080'
     replace: '{{ bitwarden_proxy_port }}:{{ bitwarden_proxy_port }}'
 
+- name: BitWarden | Remove SSL port from Docker Compose Proxy
+  lineinfile:
+    path: '{{ bitwarden_stub_path }}/docker/docker-compose.yml'
+    regexp: '443:8443'
+    state: absent
+
 - name: BitWarden | Adjust App configuration
   replace:
     path: '{{ bitwarden_stub_path }}/web/app-id.json'
