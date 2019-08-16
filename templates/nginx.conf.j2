@@ -1,5 +1,5 @@
 server {
-  listen {{ bitwarden_proxy_port }} ssl http2;
+  listen {{ bitwarden_proxy_port }};
   server_name {{ bitwarden_domain }};
 
   location / {
