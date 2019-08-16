@@ -37,6 +37,7 @@ bitwarden_container_gid: 1000
 bitwarden_reply_email: 'no-reply@{{ bitwarden_domain | mandatory }}'
 
 # List of email addresses for bootstrapped admins
+# see https://help.bitwarden.com/article/admin-portal/
 bitwarden_admin_emails: []
 # Should registartion be open
 bitwarden_disable_registration: true
@@ -94,11 +95,11 @@ bitwarden_mssql_settings:
 bitwarden_docker_settings:
   ASPNETCORE_ENVIRONMENT: 'Production'
   globalSettings__selfHosted: 'true'
-  globalSettings__baseServiceUri__vault: 'http://localhost'
-  globalSettings__baseServiceUri__api: 'http://localhost/api'
-  globalSettings__baseServiceUri__identity: 'http://localhost/identity'
-  globalSettings__baseServiceUri__admin: 'http://localhost/admin'
-  globalSettings__baseServiceUri__notifications: 'http://localhost/notifications'
+  globalSettings__baseServiceUri__vault: 'http://{{ bitwarden_domain }}'
+  globalSettings__baseServiceUri__api: 'http://{{ bitwarden_domain }}/api'
+  globalSettings__baseServiceUri__identity: 'http://{{ bitwarden_domain }}/identity'
+  globalSettings__baseServiceUri__admin: 'http://{{ bitwarden_domain }}/admin'
+  globalSettings__baseServiceUri__notifications: 'http://{{ bitwarden_domain }}/notifications'
   globalSettings__baseServiceUri__internalNotifications: 'http://notifications:{{ bitwarden_listen_port }}'
   globalSettings__baseServiceUri__internalAdmin: 'http://admin:{{ bitwarden_listen_port }}'
   globalSettings__baseServiceUri__internalIdentity: 'http://identity:{{ bitwarden_listen_port }}'
