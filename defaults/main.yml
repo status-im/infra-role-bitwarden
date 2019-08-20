@@ -35,12 +35,11 @@ bitwarden_container_gid: 1000
 
 # reply email
 bitwarden_reply_email: 'no-reply@{{ bitwarden_domain | mandatory }}'
-
 # List of email addresses for bootstrapped admins
 # see https://help.bitwarden.com/article/admin-portal/
 bitwarden_admin_emails: []
 # Should registartion be open
-bitwarden_disable_registration: true
+bitwarden_disable_registration: false
 
 # Proxy settings
 bitwarden_listen_port: 5000
@@ -55,44 +54,3 @@ bitwarden_stub_path: '/opt/bitwarden'
 # Folder permissions
 bitwarden_owner: '{{ bitwarden_container_uid }}'
 bitwarden_group: '{{ bitwarden_container_gid }}'
-
-# for env/global.override.env
-bitwarden_global_settings:
-  adminSettings__admins: '{{ bitwarden_admin_emails | join(",") }}'
-  globalSettings__attachment__baseDirectory: '/etc/bitwarden/core/attachments'
-  globalSettings__attachment__baseUrl: 'https://{{ bitwarden_domain | mandatory }}/attachments'
-  globalSettings__baseServiceUri__admin: 'https://{{ bitwarden_domain | mandatory }}/admin'
-  globalSettings__baseServiceUri__api: 'https://{{ bitwarden_domain | mandatory }}/api'
-  globalSettings__baseServiceUri__identity: 'https://{{ bitwarden_domain | mandatory }}/identity'
-  globalSettings__baseServiceUri__notifications: 'https://{{ bitwarden_domain | mandatory }}/notifications'
-  globalSettings__baseServiceUri__vault: 'https://{{ bitwarden_domain | mandatory }}'
-  globalSettings__baseServiceUri__internalNotifications: 'http://notifications:{{ bitwarden_listen_port }}'
-  globalSettings__baseServiceUri__internalAdmin: 'http://admin:{{ bitwarden_listen_port }}'
-  globalSettings__baseServiceUri__internalIdentity: 'http://identity:{{ bitwarden_listen_port }}'
-  globalSettings__baseServiceUri__internalApi: 'http://api:{{ bitwarden_listen_port }}'
-  globalSettings__baseServiceUri__internalVault: 'http://web:{{ bitwarden_listen_port }}'
-  globalSettings__dataProtection__directory: '/etc/bitwarden/core/aspnet-dataprotection'
-  globalSettings__disableUserRegistration: '{{ bitwarden_disable_registration | string | lower }}'
-  globalSettings__duo__aKey: '{{ bitwarden_duo_akey }}'
-  globalSettings__hibpApiKey: '{{ bitwarden_duo_hibp_api_key }}'
-  globalSettings__identityServer__certificatePassword: '{{ bitwarden_id_cert_pass | mandatory }}'
-  globalSettings__installation__id: '{{ bitwarden_inst_id | mandatory }}'
-  globalSettings__installation__key: '{{ bitwarden_inst_key | mandatory }}'
-  globalSettings__internalIdentityKey: '{{ bitwarden_id_key | mandatory }}'
-  globalSettings__licenseDirectory: '/etc/bitwarden/core/licenses'
-  globalSettings__logDirectory: '/etc/bitwarden/logs'
-  globalSettings__mail__replyToEmail: '{{ bitwarden_reply_email | mandatory }}'
-  globalSettings__mail__smtp__host: '{{ bitwarden_smtp_host | mandatory }}'
-  globalSettings__mail__smtp__password: '{{ bitwarden_smtp_pass | mandatory }}'
-  globalSettings__mail__smtp__port: '{{ bitwarden_smtp_port | mandatory }}'
-  globalSettings__mail__smtp__ssl: '{{ bitwarden_smtp_ssl | mandatory }}'
-  globalSettings__mail__smtp__username: '{{ bitwarden_smtp_user | mandatory }}'
-  globalSettings__sqlServer__connectionString: '"Data Source=tcp:mssql,1433;Initial Catalog=vault;Persist Security Info=False;User ID=sa;Password={{ bitwarden_db_pass | mandatory }};MultipleActiveResultSets=False;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True"'
-  globalSettings__yubico__clientId: '{{ bitwarden_yubico_client_id }}'
-  globalSettings__yubico__key: '{{ bitwarden_yubico_secret_key }}'
-
-# for env/mssql.override.env
-bitwarden_mssql_settings:
-  ACCEPT_EULA: Y
-  MSSQL_PID: Express
-  SA_PASSWORD: '{{ bitwarden_db_pass | mandatory }}'

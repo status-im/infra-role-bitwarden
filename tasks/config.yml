@@ -1,19 +1,17 @@
 ---
 - name: BitWarden | Generate Global configuration
   template:
+    src: 'global.override.env.j2'
     dest: '{{ bitwarden_stub_path }}/env/global.override.env'
-    src: 'config.j2'
     mode: 0600
     owner: '{{ bitwarden_owner }}'
     group: '{{ bitwarden_group }}'
     force: true
-  vars:
-    values_dict: '{{ bitwarden_global_settings }}'
 
 - name: BitWarden | Generate MSSQL configuration
   template:
     dest: '{{ bitwarden_stub_path }}/env/mssql.override.env'
-    src: 'config.j2'
+    src: 'mssql.override.env.j2'
     mode: 0600
     owner: '{{ bitwarden_owner }}'
     group: '{{ bitwarden_group }}'
@@ -42,11 +40,11 @@
     regexp: '443:8443'
     state: absent
 
-- name: BitWarden | Don't map /etc/ssl for Nginx container
-  replace:
-    path: '{{ bitwarden_stub_path }}/docker/docker-compose.yml'
-    regexp: '../ssl:/etc/ssl'
-    replace: '/etc/ssl:/etc/ssl'
+#- name: BitWarden | Don't map /etc/ssl for Nginx container
+#  replace:
+#    path: '{{ bitwarden_stub_path }}/docker/docker-compose.yml'
+#    regexp: '../ssl:/etc/ssl'
+#    replace: '/etc/ssl:/etc/ssl'
 
 - name: BitWarden | Adjust App configuration
   replace:
