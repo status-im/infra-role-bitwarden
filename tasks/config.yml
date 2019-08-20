@@ -19,33 +19,6 @@
   vars:
     values_dict: '{{ bitwarden_mssql_settings }}'
 
-- name: BitWarden | Generate Proxy configuration
-  template:
-    dest: '{{ bitwarden_stub_path }}/nginx/default.conf'
-    src: 'nginx.conf.j2'
-    mode: 0644
-    owner: '{{ bitwarden_owner }}'
-    group: '{{ bitwarden_group }}'
-    force: true
-
-- name: BitWarden | Adjust Docker Compose Proxy ports
-  replace:
-    path: '{{ bitwarden_stub_path }}/docker/docker-compose.yml'
-    regexp: '80:8080'
-    replace: '{{ bitwarden_proxy_port }}:{{ bitwarden_proxy_port }}'
-
-- name: BitWarden | Remove SSL port from Docker Compose Proxy
-  lineinfile:
-    path: '{{ bitwarden_stub_path }}/docker/docker-compose.yml'
-    regexp: '443:8443'
-    state: absent
-
-#- name: BitWarden | Don't map /etc/ssl for Nginx container
-#  replace:
-#    path: '{{ bitwarden_stub_path }}/docker/docker-compose.yml'
-#    regexp: '../ssl:/etc/ssl'
-#    replace: '/etc/ssl:/etc/ssl'
-
 - name: BitWarden | Adjust App configuration
   replace:
     path: '{{ bitwarden_stub_path }}/web/app-id.json'

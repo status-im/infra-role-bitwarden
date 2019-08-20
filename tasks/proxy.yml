@@ -1,0 +1,48 @@
+---
+- name: BitWarden | Adjust Docker Compose proxy HTTP port
+  replace:
+    path: '{{ bitwarden_stub_path }}/docker/docker-compose.yml'
+    regexp: '80:8080'
+    replace: '{{ bitwarden_proxy_port_http }}:{{ bitwarden_proxy_port_http }}'
+
+- name: BitWarden | Adjust Docker Compose proxy SSL port
+  replace:
+    path: '{{ bitwarden_stub_path }}/docker/docker-compose.yml'
+    regexp: '443:8443'
+    replace: '{{ bitwarden_proxy_port_ssl }}:{{ bitwarden_proxy_port_ssl }}'
+
+- name: BitWarden | Create the directory for certificates
+  file:
+    path: '{{ bitwarden_stub_path }}/ssl/{{ bitwarden_domain }}'
+    owner: '{{ bitwarden_owner }}'
+    group: '{{ bitwarden_group }}'
+    state: directory
+
+- name: BitWarden | Generate a snakeoil private key
+  openssl_privatekey:
+    path: '{{ bitwarden_stub_path }}/ssl/{{ bitwarden_domain }}/private.key'
+    owner: '{{ bitwarden_owner }}'
+    group: '{{ bitwarden_group }}'
+
+- name: BitWarden | Generate a snakeoil CSR
+  openssl_csr:
+    path: '{{ bitwarden_stub_path }}/ssl/{{ bitwarden_domain }}/cert.csr'
+    privatekey_path: '{{ bitwarden_stub_path }}/ssl/{{ bitwarden_domain }}/private.key'
+    common_name: '{{ bitwarden_domain }}'
+    owner: '{{ bitwarden_owner }}'
+    group: '{{ bitwarden_group }}'
+
+- name: BitWarden | Generate a snakeoil certificate
+  openssl_certificate:
+    path: '{{ bitwarden_stub_path }}/ssl/{{ bitwarden_domain }}/certificate.crt'
+    privatekey_path: '{{ bitwarden_stub_path }}/ssl/{{ bitwarden_domain }}/private.key'
+    csr_path: '{{ bitwarden_stub_path }}/ssl/{{ bitwarden_domain }}/cert.csr'
+    provider: selfsigned
+    owner: '{{ bitwarden_owner }}'
+    group: '{{ bitwarden_group }}'
+
+- name: BitWarden | Fix Nginx config to use snakeoil certs
+  replace:
+    path: '{{ bitwarden_stub_path }}/nginx/default.conf'
+    regexp: 'bitwarden\.example\.com'
+    replace: '{{ bitwarden_domain }}'
