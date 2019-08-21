@@ -30,7 +30,7 @@ bitwarden_duo_hibp_api_key: ~
 
 # Docker Compose settings
 bitwarden_compose_state: present
-bitwarden_compose_recreate: never
+bitwarden_compose_recreate: smart
 bitwarden_compose_restart: true
 
 # UID & GID for container
