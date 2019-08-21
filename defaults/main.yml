@@ -1,6 +1,10 @@
 ---
 # FQDN the BitWarden service will use
 bitwarden_domain: ~
+# SSL certificate
+bitwarden_ssl_private_key: ~
+bitwarden_ssl_certificate: ~
+bitwarden_ssl_cert_authority: ~
 # Unique for each installation, see https://bitwarden.com/host/
 bitwarden_inst_id: ~
 bitwarden_inst_key: ~
@@ -43,9 +47,6 @@ bitwarden_disable_registration: false
 
 # Proxy settings
 bitwarden_listen_port: 5000
-bitwarden_proxy_port_http: 8080
-# not really used
-bitwarden_proxy_port_ssl: 8443
 
 # WARNING: Changing this might require role updates
 bitwarden_version: '1.31.1'
