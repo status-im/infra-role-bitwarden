@@ -28,14 +28,9 @@ bitwarden_duo_akey: ~
 # HaveIBeenPwned API Key
 bitwarden_duo_hibp_api_key: ~
 
-# Docker Compose settings
-bitwarden_compose_state: present
-bitwarden_compose_recreate: smart
-bitwarden_compose_restart: true
-
-# UID & GID for container
-bitwarden_container_uid: 1000
-bitwarden_container_gid: 1000
+# UID & GID for container, nobody by default
+bitwarden_container_uid: 65534
+bitwarden_container_gid: 65534
 
 # reply email
 bitwarden_reply_email: 'no-reply@{{ bitwarden_domain | mandatory }}'

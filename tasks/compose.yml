@@ -10,11 +10,6 @@
       LOCAL_GID={{ bitwarden_container_gid }}
 
 - name: BitWarden | Compose the containers
-  docker_compose:
-    project_name: 'bitwarden'
-    project_src: '{{ bitwarden_stub_path }}'
-    files: 'docker/docker-compose.yml'
-    pull: true
-    state: '{{ bitwarden_compose_state }}'
-    recreate: '{{ bitwarden_compose_recreate }}'
-    restarted:  '{{ bitwarden_compose_restart }}'
+  command: docker-compose -f ./docker/docker-compose.yml up -d
+  args:
+    chdir: '{{ bitwarden_stub_path }}'
