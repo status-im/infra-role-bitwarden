@@ -1,6 +1,6 @@
 # Descirption
 
-This Ansible role configures the [BitWarden]() service based on the instructions listed in [their documentation](https://help.bitwarden.com/article/install-on-premise/#manual-docker-installations).
+This Ansible role configures the [BitWarden](https://bitwarden.com/) service based on the instructions listed in [their documentation](https://help.bitwarden.com/article/install-on-premise/#manual-docker-installations).
 
 # Configuration
 
@@ -32,4 +32,14 @@ bitwarden_duo_hibp_api_key: ~
 
 * The default Nginx config assumes a lot of things
 * Version upgrade will probably involve template updates
-* Sometimes MSSQL instance refuses to start for no fucking reason
+* MSSQL instance refuses to start for no reason when using `docker_compose` Ansible module
+
+# Links
+
+* [Discussion that started this](https://discuss.status.im/t/switching-from-lastpass-to-1password-wdyt)
+* [Issue that created this role](https://github.com/status-im/infra-misc/issues/17)
+* [Installation instructions](https://help.bitwarden.com/article/install-on-premise/)
+* [Source of Installation ID & Key](https://bitwarden.com/host/)
+* [How to access Admin Portal](https://help.bitwarden.com/article/admin-portal/)
+* [How to port Premium license](https://help.bitwarden.com/article/licensing-on-premise/#organization-account-sharing)
+* [How to do backups](https://help.bitwarden.com/article/backup-on-premise/)
