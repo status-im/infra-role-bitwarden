@@ -14,7 +14,6 @@
     path: '{{ bitwarden_stub_path }}'
     state: 'directory'
     mode: 0750
-    recurse: true
     owner: '{{ bitwarden_owner }}'
     group: '{{ bitwarden_group }}'
 
