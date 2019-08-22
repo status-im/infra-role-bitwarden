@@ -38,7 +38,7 @@ bitwarden_reply_email: 'no-reply@{{ bitwarden_domain | mandatory }}'
 # see https://help.bitwarden.com/article/admin-portal/
 bitwarden_admin_emails: []
 # Should registartion be open
-bitwarden_disable_registration: false
+bitwarden_disable_registration: true
 
 # Proxy settings
 bitwarden_listen_port: 5000
